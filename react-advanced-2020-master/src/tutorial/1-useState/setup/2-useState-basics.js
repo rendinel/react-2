@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 //useState is a function that return an array, we need to pass a default value that can be whetever we want,
 // a string a number ecc., in this case is s astring 'random title ? and this value it's what we are going to display inside the html
 // then we deconstruct the array and we set it to be equal to a value (text in this case) that is the default value and to a function
@@ -11,10 +11,10 @@ const UseStateBasics = () => {
   //const handler = useState(1)[1]
   //console.log(value,handler)
 
-  const [text,setText] = useState('random title')
+  const [text, setText] = useState('random title')
 
   const handleClick = () => {
-    if(text === 'random title'){
+    if (text === 'random title') {
       setText('new title')
     } else {
       setText('random title')
@@ -23,11 +23,23 @@ const UseStateBasics = () => {
   return (
     <React.Fragment>
       <h1>{text}</h1>
-      <button className="btn" onClick={handleClick}>Change Title</button>
+      <button className='btn' onClick={handleClick}>
+        Change Title
+      </button>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default UseStateBasics;
+export default UseStateBasics
 
-//hooks always start with use
+//hooks always start with use UseStateBasics
+// the name of the component the use useState must be uppercase, no camel case UseStateBasics
+// the hook must be contained inside thew function body const [text, setText] = useState('random title')
+// you can't call i9t conditionally but you can call the function that return conditionally
+// like this   const handleClick = () => {
+//     if (text === 'random title') {
+//       setText('new title')
+//     } else {
+//       setText('random title')
+//     }
+//   }
