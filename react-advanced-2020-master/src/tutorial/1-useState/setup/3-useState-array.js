@@ -2,7 +2,7 @@ import React from 'react'
 import { data } from '../../../data'
 
 const UseStateArray = () => {
-  // instead of import React, { useState } from 'react' we can write it like this
+  // instead of import React { useState } from 'react' we can write it like this
   const [people, setPeople] = React.useState(data)
 
   const removeItem = (id) => {
