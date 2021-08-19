@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 // JS
 // const input = document.getElementById('myText');
 // const inputValue = input.value
@@ -7,36 +7,41 @@ import React, { useState } from 'react';
 // dynamic object keys
 
 const ControlledInputs = () => {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
-  const [people, setPeople] = useState([]);
+  //we set up an empty object and the set to update it
+  const [person, setPerson] = useState({ firstName: '', email: '', age: '' })
+  //we set up the an empty array and the set to modify it
+  const [people, setPeople] = useState([])
 
+  // we update the object in a dinamic way, we pick up the name and the value and add to the object , every name will be a key and evry value will be the value, this way we can update multiple key value with only one function
+  const handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    setPerson({ ...person, [name]: value })
+  }
+  //we call the preventdefault so tha page doesen't rerender every time we update,we check if the input aren't empty
+  //we setup a newperson object that is equall to our person object plus and id that generateed relate dto the date and moment we insert the object
+  //we update the people array adding to it the newpersonobject and we setup the input to be empty again
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (firstName && email) {
-      const person = { id: new Date().getTime().toString(), firstName, email };
-      console.log(person);
-      setPeople((people) => {
-        return [...people, person];
-      });
-      setFirstName('');
-      setEmail('');
-    } else {
-      console.log('empty values');
+    e.preventDefault()
+    if (person.firstName && person.email && person.age) {
+      const newPerson = { ...person, id: new Date().getTime().toString() }
+      setPeople([...people, newPerson])
+      setPerson({ firstName: '', email: '', age: '' })
     }
-  };
+  }
+
   return (
     <>
       <article>
-        <form className='form' onSubmit={handleSubmit}>
+        <form className='form'>
           <div className='form-control'>
             <label htmlFor='firstName'>Name : </label>
             <input
               type='text'
               id='firstName'
               name='firstName'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={person.firstName}
+              onChange={handleChange}
             />
           </div>
           <div className='form-control'>
@@ -45,24 +50,38 @@ const ControlledInputs = () => {
               type='email'
               id='email'
               name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={person.email}
+              onChange={handleChange}
             />
           </div>
-          <button type='submit'>add person</button>
+          <div className='form-control'>
+            <label htmlFor='age'>Age : </label>
+            <input
+              type='age'
+              id='age'
+              name='age'
+              value={person.age}
+              onChange={handleChange}
+            />
+          </div>
+          <button type='submit' onClick={handleSubmit}>
+            add person
+          </button>
         </form>
-        {people.map((person, index) => {
-          const { id, firstName, email } = person;
+        {people.map((person) => {
+          const { id, firstName, email, age } = person
           return (
             <div className='item' key={id}>
               <h4>{firstName}</h4>
+              <p>{age}</p>
               <p>{email}</p>
+              <p>{id}</p>
             </div>
-          );
+          )
         })}
       </article>
     </>
-  );
-};
+  )
+}
 
-export default ControlledInputs;
+export default ControlledInputs
